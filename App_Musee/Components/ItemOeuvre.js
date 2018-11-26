@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 class ItemOeuvre extends React.Component {
     render() {
+        const displayDetailForOeuvre = this.props.displayDetailForOeuvre
         const oeuvre = this.props.oeuvre
         return (
-          <View style={styles.content}>
+          <TouchableOpacity onPress={() => displayDetailForOeuvre(oeuvre.id)} style={styles.content}>
               <Image style={styles.image} source={{uri: '{oeuvre.image_path}'}}></Image>
               <View style={styles.details}>
                 <Text style={styles.head}> {oeuvre.title} </Text>
                 <Text> {oeuvre.artiste} </Text>
               </View>
-          </View>
+          </TouchableOpacity>
         )
     }
 }
