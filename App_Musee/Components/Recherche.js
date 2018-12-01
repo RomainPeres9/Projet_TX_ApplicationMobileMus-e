@@ -34,6 +34,7 @@ class Recherche extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
+    backgroundColor: '#FBF8EF',
     flex: 1,
     marginTop: 30
   },

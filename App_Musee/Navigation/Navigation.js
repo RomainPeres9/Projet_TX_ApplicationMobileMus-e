@@ -1,3 +1,4 @@
+import React from 'react'
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import EnsembleOeuvres from '../components/EnsembleOeuvres'
 import DetailOeuvre from '../components/DetailOeuvre'
@@ -19,15 +20,23 @@ const OeuvresStackNavigator = createStackNavigator({
   }
 })
 
-const AppTabNavigator = createBottomTabNavigator({
-  Oeuvres: {
-    screen: OeuvresStackNavigator
+const AppTabNavigator = createBottomTabNavigator(
+  {
+    Oeuvres: {
+      screen: OeuvresStackNavigator
+    },
+    Recherche: {
+      screen: Recherche
+    },
+    Infos: {
+      screen: Infos
+    },
   },
-  Search: {
-    screen: Recherche
-  },
-  Infos: {
-    screen: Infos
+  {
+    tabBarOptions: {
+      activeBackgroundColor: '#DDDDDD', // Couleur d'arrière-plan de l'onglet sélectionné
+      inactiveBackgroundColor: '#FFFFFF', // Couleur d'arrière-plan des onglets non sélectionnés
+    }
   }
-})
+)
 export default AppTabNavigator

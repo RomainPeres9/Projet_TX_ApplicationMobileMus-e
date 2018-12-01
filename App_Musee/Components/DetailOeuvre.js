@@ -30,23 +30,22 @@ class DetailOeuvre extends React.Component {
 
     render() {
         const oeuvre = this.props.navigation.state.params
+
         console.log(oeuvre.artisteOeuvre)
         return (
-          <View style={styles.content}>
-            <View style={styles.header}>
-              <Image style={styles.image} source={{uri: "image"}}></Image>
-              <View style={styles.headercontent}>
+          <View style={styles.contents}>
+            <View style={styles.content}>
+              <Image style={styles.image} source={{uri : 'image.png'}}></Image>
+              <View style={styles.header}>
                 <Text style={styles.head}> {oeuvre.titleOeuvre} </Text>
                 <Text> {oeuvre.artisteOeuvre} </Text>
+                <Text style={styles.date}> Date : {oeuvre.dateOeuvre} </Text>
+                <Text> {oeuvre.themeOeuvre} </Text>
+                <Text> {oeuvre.materielOeuvre} </Text>
               </View>
-            </View>
-            <View style={styles.details}>
-              <Text> Date: {oeuvre.dateOeuvre} </Text>
-              <Text> {oeuvre.themeOeuvre} </Text>
-              <Text> {oeuvre.materielOeuvre} </Text>
-            </View>
-            <View style={styles.note}>
-              <Text> *  *  *  *  * </Text>
+              <View style={styles.note}>
+                <Text> *  *  *  *  * </Text>
+              </View>
             </View>
           </View>
         )
@@ -54,33 +53,35 @@ class DetailOeuvre extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  contents: {
+    backgroundColor: '#FBF8EF',
+    flex:1
+  },
   content: {
+    marginLeft:15,
+    marginRight: 15,
     flex:1
   },
   header: {
     marginTop : 5,
-    flex:4,
-    flexDirection: 'row'
-  },
-  details: {
-    marginTop : 5,
     flex:3
   },
+  date: {
+    textAlign: 'right'
+  },
   note:{
-    height: 60,
+    flex: 1,
     fontSize: 20
   },
   image : {
     flex: 1,
-    height:180,
-    width:120,
-    backgroundColor: 'grey'
-  },
-  headercontent :{
-    flex: 2
+    height: 240,
+    width: 160,
+    backgroundColor: '#B45F04'
   },
   head : {
     fontWeight: 'bold',
+    textAlign: 'center',
     fontSize: 20
   },
   loading_container: {

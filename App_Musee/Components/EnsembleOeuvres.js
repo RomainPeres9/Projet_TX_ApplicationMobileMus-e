@@ -15,19 +15,27 @@ class EnsembleOeuvres extends React.Component {
     const appBDMusee = require('../Helpers/AppBDMusee.json')
     //console.log(appBDMusee.data)
     return (
-    <View style={styles.main_container}>
-      <FlatList
-        data={appBDMusee.data}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({item}) => <ItemOeuvre oeuvre={item} displayDetailForOeuvre={this._displayDetailForOeuvre}/>}
-      />
-    </View>
+      <View style={styles.contents}>
+        <View style={styles.main_container}>
+          <FlatList
+            data={appBDMusee.data}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({item}) => <ItemOeuvre oeuvre={item} displayDetailForOeuvre={this._displayDetailForOeuvre}/>}
+          />
+        </View>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  contents: {
+    backgroundColor: '#FBF8EF',
+    flex: 1
+  },
   main_container: {
+    marginLeft: 15,
+    marginRight: 15,
     flex: 1
   }
 })

@@ -1,12 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Infos from './Components/Infos'
-import DetailOeuvre from './Components/DetailOeuvre'
-import Recherche from './Components/Recherche'
-import Menu from './Components/Menu'
-import Navigation from './Navigation/Navigation'
-import ItemOeuvre from './Components/ItemOeuvre'
-
+//import { StyleSheet, Text, View } from 'react-native';
+//import Infos from './components/Infos'
+//import DetailOeuvre from './components/DetailOeuvre'
+//import Recherche from './components/Recherche'
+//import Menu from './components/Menu'
+import Navigation from './navigation/Navigation'
+//import ItemOeuvre from './components/ItemOeuvre'
 
 export default class App extends React.Component {
   render() {

@@ -18,8 +18,8 @@ class ItemOeuvre extends React.Component {
                 //ForwardRef={oeuvre.image_path}
               />
               <View style={styles.details}>
-                <Text style={styles.head}> {oeuvre.title} </Text>
-                <Text> {oeuvre.artiste} </Text>
+                <Text style={styles.head}>{oeuvre.title} </Text>
+                <Text style={styles.artiste}>{oeuvre.artiste} </Text>
               </View>
           </TouchableOpacity>
         )
@@ -33,22 +33,21 @@ const styles = StyleSheet.create({
     flex:1
   },
   details: {
+    marginLeft:5,
     flex:3
-  },
-  note:{
-    height: 60,
-    fontSize: 20
   },
   image : {
     flex: 1,
     height:120,
     width:80,
-    backgroundColor: 'rosybrown'
+    backgroundColor: '#B45F04'
   },
-
   head : {
     fontWeight: 'bold',
     fontSize: 16
+  },
+  artiste : {
+    color: '#6C4202'
   }
 })
 
