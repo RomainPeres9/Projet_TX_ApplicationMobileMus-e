@@ -41,7 +41,7 @@ class DetailOeuvre extends React.Component {
               </View>
             </View>
             <View style={styles.details}>
-              <Text> {oeuvre.dateOeuvre} </Text>
+              <Text> Date: {oeuvre.dateOeuvre} </Text>
               <Text> {oeuvre.themeOeuvre} </Text>
               <Text> {oeuvre.materielOeuvre} </Text>
             </View>

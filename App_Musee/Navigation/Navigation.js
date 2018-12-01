@@ -1,6 +1,8 @@
-import { createStackNavigator } from 'react-navigation';
-import EnsembleOeuvres from '../Components/EnsembleOeuvres'
-import DetailOeuvre from '../Components/DetailOeuvre'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import EnsembleOeuvres from '../components/EnsembleOeuvres'
+import DetailOeuvre from '../components/DetailOeuvre'
+import Recherche from '../components/Recherche'
+import Infos from '../components/Infos'
 
 const OeuvresStackNavigator = createStackNavigator({
   EnsembleOeuvres: {
@@ -17,5 +19,15 @@ const OeuvresStackNavigator = createStackNavigator({
   }
 })
 
-
-export default OeuvresStackNavigator
+const AppTabNavigator = createBottomTabNavigator({
+  Oeuvres: {
+    screen: OeuvresStackNavigator
+  },
+  Search: {
+    screen: Recherche
+  },
+  Infos: {
+    screen: Infos
+  }
+})
+export default AppTabNavigator
