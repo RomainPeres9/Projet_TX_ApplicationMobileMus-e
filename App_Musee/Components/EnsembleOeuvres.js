@@ -1,20 +1,23 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList } from 'react-native'
-import oeuvres from '../Helpers/BDMusee.js'
+//import oeuvres from '../Helpers/BDMusee.js'
+//import AppBDMusee from '../Helpers/AppBDMusee.json'
 import ItemOeuvre from './ItemOeuvre'
 
 class EnsembleOeuvres extends React.Component {
 
-  _displayDetailForOeuvre = (idOeuvre) => {
+  _displayDetailForOeuvre = (idOeuvre, titleOeuvre, artisteOeuvre, image_pathOeuvre, materielOeuvre, themeOeuvre, dateOeuvre ) => {
     //console.log("idOeuvre: " + idOeuvre);
-    this.props.navigation.navigate("DetailOeuvre")
+    this.props.navigation.navigate("DetailOeuvre", { idOeuvre: idOeuvre, titleOeuvre: titleOeuvre, artisteOeuvre: artisteOeuvre, image_pathOeuvre: image_pathOeuvre, materielOeuvre: materielOeuvre, themeOeuvre: themeOeuvre, dateOeuvre: dateOeuvre })
   }
 
   render() {
+    const appBDMusee = require('../Helpers/AppBDMusee.json')
+    //console.log(appBDMusee.data)
     return (
     <View style={styles.main_container}>
       <FlatList
-        data={oeuvres}
+        data={appBDMusee.data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => <ItemOeuvre oeuvre={item} displayDetailForOeuvre={this._displayDetailForOeuvre}/>}
       />

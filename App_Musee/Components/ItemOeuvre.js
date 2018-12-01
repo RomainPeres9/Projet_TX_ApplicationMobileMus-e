@@ -1,13 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { getImageFromJSON } from '../Query/BDQueryJSON'
 
 class ItemOeuvre extends React.Component {
     render() {
         const displayDetailForOeuvre = this.props.displayDetailForOeuvre
         const oeuvre = this.props.oeuvre
+        console.log(oeuvre.image_path)
+
         return (
-          <TouchableOpacity onPress={() => displayDetailForOeuvre(oeuvre.id)} style={styles.content}>
-              <Image style={styles.image} source={{uri: '{oeuvre.image_path}'}}></Image>
+          <TouchableOpacity onPress={() => displayDetailForOeuvre(oeuvre.id, oeuvre.title, oeuvre.artiste, oeuvre.image_path, oeuvre.materiel, oeuvre.theme, oeuvre.date)} style={styles.content}>
+              <Image
+                style={styles.image}
+                source={{uri: getImageFromJSON(oeuvre.image_path)}}
+                //Le faire avec un require
+                //source={require(getImageFromJSON(oeuvre.image_path))}
+                //ForwardRef={oeuvre.image_path}
+              />
               <View style={styles.details}>
                 <Text style={styles.head}> {oeuvre.title} </Text>
                 <Text> {oeuvre.artiste} </Text>
@@ -19,7 +28,7 @@ class ItemOeuvre extends React.Component {
 
 const styles = StyleSheet.create({
   content: {
-    marginTop : 30,
+    marginTop: 15,
     flexDirection: 'row',
     flex:1
   },

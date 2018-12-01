@@ -1,24 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
 
 class DetailOeuvre extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        film: undefined,
+        isloading: true
+      }
+    }
+
+    _displayLoading() {
+      if(this.state.isloading) {
+        return (
+          <View style={styles.loading_container}>
+            <ActivityIndicator size='large' />
+          </View>
+        )
+      }
+    }
+
+    // _affichageDetail() {
+    //
+    // }
+    //
+    // componentDidMount() {
+    //
+    // }
+
     render() {
+        const oeuvre = this.props.navigation.state.params
+        console.log(oeuvre.artisteOeuvre)
         return (
           <View style={styles.content}>
             <View style={styles.header}>
               <Image style={styles.image} source={{uri: "image"}}></Image>
               <View style={styles.headercontent}>
-                <Text style={styles.head}> Titre </Text>
-                <Text> Auteur </Text>
+                <Text style={styles.head}> {oeuvre.titleOeuvre} </Text>
+                <Text> {oeuvre.artisteOeuvre} </Text>
               </View>
             </View>
             <View style={styles.details}>
-              <Text> Date </Text>
-              <Text> Type </Text>
-              <Text> Materiel </Text>
+              <Text> {oeuvre.dateOeuvre} </Text>
+              <Text> {oeuvre.themeOeuvre} </Text>
+              <Text> {oeuvre.materielOeuvre} </Text>
             </View>
             <View style={styles.note}>
-              <Text> *   *   *   *   * </Text>
+              <Text> *  *  *  *  * </Text>
             </View>
           </View>
         )
@@ -27,7 +55,6 @@ class DetailOeuvre extends React.Component {
 
 const styles = StyleSheet.create({
   content: {
-    marginTop : 30,
     flex:1
   },
   header: {
@@ -55,7 +82,17 @@ const styles = StyleSheet.create({
   head : {
     fontWeight: 'bold',
     fontSize: 20
+  },
+  loading_container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
+
 
 export default DetailOeuvre

@@ -2,15 +2,28 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList } from 'react-native'
 import oeuvres from '../Helpers/BDMusee.js'
 import ItemOeuvre from './ItemOeuvre'
+import { getOeuvreFromJSONwithsearchedText } from '../Query/BDQueryJSON'
 
 class Recherche extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      oeuvres: []
+    },
+    searchedText = ""
+  }
+
+  _loadOeuvres(){
+
+  }
+
   render() {
     return (
     <View style={styles.main_container}>
-      <TextInput style={styles.textinput} placeholder="Nom de l'oeuvre"/>
-      <Button style={styles.button} title='Rechercher' onPress={() => {}}/>
+      <TextInput style={styles.textinput} placeholder="Nom de l'oeuvre que vous recherchez"/>
+      <Button style={styles.button} title='Rechercher' onPress={() => this._loadOeuvres()}/>
       <FlatList
-        data={oeuvres}
+        data={this.state.oeuvres}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => <ItemOeuvre oeuvre={item}/>}
       />
