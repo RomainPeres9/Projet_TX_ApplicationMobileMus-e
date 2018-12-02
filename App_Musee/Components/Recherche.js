@@ -9,18 +9,28 @@ class Recherche extends React.Component {
     super(props)
     this.state = {
       oeuvres: []
-    },
-    searchedText = ""
+    }
+    this.searchedText = ""
   }
 
-  _loadOeuvres(){
+  // _loadOeuvresJSON(){
+  //  Mais je ne sais pas comment faire pour l'instant
+  // }
 
+  _loadOeuvres(){
+    if(this.searchedText.length > 0){
+      getOeuvreFromAPIWithSearchedText(this.searchedText).then(data => this.setState({ oeuvres: data.results }))
+    }
+  }
+
+  _searchedTextInputChange(text) {
+    this.searchedText = text
   }
 
   render() {
     return (
     <View style={styles.main_container}>
-      <TextInput style={styles.textinput} placeholder="Nom de l'oeuvre que vous recherchez"/>
+      <TextInput onChangeText={(text) => this._searchedTextInputChange(text)} style={styles.textinput} placeholder="Nom de l'oeuvre que vous recherchez" />
       <Button style={styles.button} title='Rechercher' onPress={() => this._loadOeuvres()}/>
       <FlatList
         data={this.state.oeuvres}
@@ -34,7 +44,6 @@ class Recherche extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    backgroundColor: '#FBF8EF',
     flex: 1,
     marginTop: 30
   },
