@@ -1,14 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
+import data from '../Helpers/AppBDMusee.json'
 
 class DetailOeuvre extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
         oeuvre: undefined,
-        isloading: true
+        isloading: true //verifie si un fichier JSON est entrain d'étre chercher
       }
+    }
+
+    componentDidMount() {
+      //console.log(this.props.navigation.state.params)
+      this.setState({
+        isloading: false, //le fichier a été trouvé
+        oeuvre: this.props.navigation.state.params
+      })
     }
 
     _displayLoading() {
@@ -21,27 +30,48 @@ class DetailOeuvre extends React.Component {
       }
     }
 
-    //_ affichageDetail() {
-    //
-    // }
-    //
-    // componentDidMount() {
-    //
-    // }
+    _displayOeuvre() {
+      const oeuvre = this.state.oeuvre
+      if (oeuvre != undefined) {
+        return(
+          <ScrollView style={styles.scrollview_container}>
+            <View style={styles.header}>
+              <Image style={styles.image} source={{uri: oeuvre.photo}}></Image>
+              <View style={styles.headercontent}>
+                <Text style={styles.head}> {oeuvre.title} </Text>
+                <Text style= {styles.artiste}> {oeuvre.artiste} </Text>
+              </View>
+            </View>
+            <View style={styles.details}>
+              <Text style={{color: '#6C4202'}}> Date : {oeuvre.date} </Text>
+              <Text style={{color: '#6C4202'}}> Thème : {oeuvre.theme} </Text>
+              <Text style={{color: '#6C4202'}}> Matériel : {oeuvre.materiel} </Text>
+            </View>
+            <View style={styles.note}>
+              <TouchableOpacity onPress={() => this._toggleFavorite()} style={styles.favorite_container}>
+                  {this._displayFavoriteImage()}
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        )
+      }
+    }
 
+    //Fait parti du cycle de vie Updating
     componentDidUpdate() {
       console.log(this.props.favoritesOeuvre);
       //console.log("salut!!")
     }
 
     _toggleFavorite() {
-      const action = { type: "TOGGLE_FAVORITE", value: this.state.oeuvre  }
+      const action = { type: "TOGGLE_FAVORITE", value: this.state.oeuvre }
+      console.log(action.value.url)
       this.props.dispatch(action)
     }
 
     _displayFavoriteImage() {
       var sourceImage = require('../Images/ic_favorite_border.png')
-      if(this.props.favoritesOeuvre.findIndex(item => item.id === this.state.oeuvre.id) !== -1){
+      if(this.props.favoritesOeuvre.findIndex(item => item.url === this.state.oeuvre.url) !== -1){
         //le film fait deja parti de nos favoris
         sourceImage = require('../Images/ic_favorite.png')
       }
@@ -51,46 +81,32 @@ class DetailOeuvre extends React.Component {
     }
 
     render() {
-        //console.log(this.props);
         const oeuvre = this.props.navigation.state.params
-        //console.log(oeuvre.artisteOeuvre)
         return (
           <View style={styles.content}>
-            <View style={styles.header}>
-              <Image style={styles.image} source={{uri: "image"}}></Image>
-              <View style={styles.headercontent}>
-                <Text style={styles.head}> {oeuvre.titleOeuvre} </Text>
-                <Text> {oeuvre.artisteOeuvre} </Text>
-              </View>
-            </View>
-            <View style={styles.details}>
-              <Text> Date : {oeuvre.dateOeuvre} </Text>
-              <Text> Thème : {oeuvre.themeOeuvre} </Text>
-              <Text> Matériel : {oeuvre.materielOeuvre} </Text>
-            </View>
-            <View style={styles.note}>
-              <Text> *  *  *  *  * </Text>
-              <TouchableOpacity onPress={() => this._toggleFavorite()} style={styles.favorite_container}>
-                {this._displayFavoriteImage()}
-              </TouchableOpacity>
-            </View>
+            {this._displayLoading()}
+            {this._displayOeuvre()}
           </View>
+
         )
     }
 }
 
 const styles = StyleSheet.create({
   content: {
-    flex:1,
-    marginTop:3
+    backgroundColor: '#FBF8EF',
+    flex: 1
+  },
+  scrollview_container: {
+    flex: 1
   },
   header: {
-    flex:3,
+    flex: 2,
     flexDirection: 'row'
   },
   details: {
-    marginTop : 5,
-    flex:3
+    flex: 5,
+    marginTop : 30
   },
   note:{
     flex: 1,
@@ -99,12 +115,15 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   image : {
-    flex: 1,
     height:180,
     width:120,
     marginLeft: 3,
     marginRight: 3,
-    backgroundColor: 'grey'
+    marginTop: 3,
+    backgroundColor: '#B45F04'
+  },
+  artiste : {
+    color: '#6C4202'
   },
   headercontent :{
     flex: 2
@@ -123,6 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   favorite_container: {
+      flex: 1,
       alignItems: 'center'
   },
   favorite_image: {
