@@ -1,9 +1,9 @@
 import React from 'react'
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import EnsembleOeuvres from '../components/EnsembleOeuvres'
-import DetailOeuvre from '../components/DetailOeuvre'
-import Recherche from '../components/Recherche'
-import Infos from '../components/Infos'
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import EnsembleOeuvres from '../Components/EnsembleOeuvres'
+import DetailOeuvre from '../Components/DetailOeuvre'
+import Recherche from '../Components/Recherche'
+import Infos from '../Components/Infos'
 
 const OeuvresStackNavigator = createStackNavigator({
   EnsembleOeuvres: {
@@ -39,4 +39,6 @@ const AppTabNavigator = createBottomTabNavigator(
     }
   }
 )
-export default AppTabNavigator
+
+const AppContainer = createAppContainer(AppTabNavigator)
+export default AppContainer

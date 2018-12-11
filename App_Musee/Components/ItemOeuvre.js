@@ -3,9 +3,15 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 //import { getImageFromJSON } from '../Query/BDQueryJSON'
 
 class ItemOeuvre extends React.Component {
+	_displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre,	materielOeuvre, themeOeuvre, dateOeuvre ) => {
+	    //console.log(this.state.);
+	    this.props.navigation.navigate("DetailOeuvre", { urlOeuvre: url, titleOeuvre: title, artisteOeuvre: artiste, imageOeuvre: photo, materielOeuvre: materiel, themeOeuvre: theme, dateOeuvre: date })
+	  }
+
     render() {
         const displayDetailForOeuvre = this.props.displayDetailForOeuvre
         const oeuvre = this.props.oeuvre
+	//const oeuvre= this.state.oeuvres
         //console.log(oeuvre.photo)
         return (
           <TouchableOpacity onPress={() => displayDetailForOeuvre(oeuvre.url, oeuvre.title, oeuvre.artiste, oeuvre.imageOeuvre, oeuvre.materiel, oeuvre.theme, oeuvre.date)} style={styles.content}>

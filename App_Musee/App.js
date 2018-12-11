@@ -4,13 +4,13 @@ import React from 'react';
 //import DetailOeuvre from './components/DetailOeuvre'
 //import Recherche from './components/Recherche'
 //import Menu from './components/Menu'
-import Navigation from './navigation/Navigation'
+import AppContainer from './Navigation/Navigation'
 //import ItemOeuvre from './components/ItemOeuvre'
 
 export default class App extends React.Component {
   render() {
     return (
-      <Navigation/>
+      <AppContainer/>
     )
   }
 }

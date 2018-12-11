@@ -31,9 +31,8 @@ class EnsembleOeuvres extends React.Component {
   }
 
 
-_displayDetailForOeuvre = (idOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre, materielOeuvre, themeOeuvre, dateOeuvre ) => {
-    //console.log("idOeuvre: " + idOeuvre);
-    this.props.navigation.navigate("DetailOeuvre", { urlOeuvre: url, titleOeuvre: title, artisteOeuvre: artiste, imageOeuvre: photo, materielOeuvre: materiel, themeOeuvre: theme, dateOeuvre: date })
+_displayDetailForOeuvre = (titleOeuvre, artisteOeuvre, imageOeuvre, materielOeuvre, themeOeuvre, dateOeuvre, urlOeuvre ) => {
+    this.props.navigation.navigate("DetailOeuvre", {titleOeuvre: title, artisteOeuvre: artiste, imageOeuvre: photo, materielOeuvre: materiel, themeOeuvre: theme, dateOeuvre: date,  urlOeuvre: url })
   }
 
   render(){
@@ -48,11 +47,13 @@ _displayDetailForOeuvre = (idOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre, ma
 
     
     return (
+
       <View style={styles.contents}>
         <View style={styles.main_container}>
           <FlatList
             data={this.state.oeuvres}
-            keyExtractor={(item) => item.url}
+            keyExtractor={(item) => item.urlOeuvre}
+	    //keyExtractor={(item)=>oeuvre.url}
             renderItem={({item}) => <ItemOeuvre oeuvre={item} displayDetailForOeuvre={this._displayDetailForOeuvre}/>}
           />
         </View>

@@ -51,7 +51,7 @@ class DetailOeuvre extends React.Component {
     }
 
     render() {
-        //console.log(this.props);
+        console.log(this.props.oeuvre);
         const oeuvre = this.props.navigation.state.params
         //console.log(oeuvre.artisteOeuvre)
         return (
