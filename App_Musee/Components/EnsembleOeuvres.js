@@ -42,6 +42,7 @@ _displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre, m
     }
 
     return (
+
       <View style={styles.contents}>
         <View style={styles.main_container}>
           <FlatList

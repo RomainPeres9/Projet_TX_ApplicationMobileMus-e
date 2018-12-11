@@ -1,11 +1,13 @@
 import React from 'react'
+
 import { Image, StyleSheet } from 'react-native'
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import EnsembleOeuvres from '../Components/EnsembleOeuvres'
 import DetailOeuvre from '../Components/DetailOeuvre'
 import Recherche from '../Components/Recherche'
 import Infos from '../Components/Infos'
 import Favorites from '../Components/Favorites'
+
 
 const OeuvresStackNavigator = createStackNavigator({
   EnsembleOeuvres: {
@@ -67,6 +69,9 @@ const AppTabNavigator = createBottomTabNavigator({
   }
 )
 
+const AppContainer = createAppContainer(AppTabNavigator)
+
+
 const styles = StyleSheet.create({
   icon: {
     width : 30,
@@ -74,8 +79,4 @@ const styles = StyleSheet.create({
   }
 })
 
-
-
-
-
-export default AppTabNavigator
+export default AppContainer
