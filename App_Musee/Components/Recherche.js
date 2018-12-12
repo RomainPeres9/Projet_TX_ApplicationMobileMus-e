@@ -13,13 +13,22 @@ class Recherche extends React.Component {
     this.searchedText = ""
   }
 
-  // _loadOeuvresJSON(){
-  //  Mais je ne sais pas comment faire pour l'instant
-  // }
+
 
   _loadOeuvres(){
     if(this.searchedText.length > 0){
-      getOeuvreFromAPIWithSearchedText(this.searchedText).then(data => this.setState({ oeuvres: data.results }))
+      const request='http://192.168.43.58:8000/oeuvresAutocomplete/?query='+this.searchedText
+      return fetch(request)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        //console.log(responseJson)
+        this.setState({
+          oeuvres: responseJson
+        })
+      })
+      .catch((error) =>{
+        console.error(error)
+      })
     }
   }
 
@@ -34,7 +43,7 @@ class Recherche extends React.Component {
       <Button style={styles.button} title='Rechercher' onPress={() => this._loadOeuvres()}/>
       <FlatList
         data={this.state.oeuvres}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.url}
         renderItem={({item}) => <ItemOeuvre oeuvre={item}/>}
       />
     </View>
