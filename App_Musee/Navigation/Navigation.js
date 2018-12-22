@@ -24,6 +24,45 @@ const OeuvresStackNavigator = createStackNavigator({
   }
 })
 
+const InfoStackNavigator = createStackNavigator({
+  Infos: {
+    screen: Infos,
+    navigationOptions: {
+      title: 'Informations musée du Second Empire'
+    }
+  }
+})
+
+const RechercheStackNavigator = createStackNavigator({
+  Recherche: {
+    screen: Recherche,
+    navigationOptions: {
+      title: 'Recherche d\'oeuvres'
+    }
+  },
+  DetailOeuvre: {
+    screen: DetailOeuvre,
+    navigationOptions: {
+      title: 'Oeuvre détaillée'
+    }
+  }
+})
+
+const FavoritesStackNavigator = createStackNavigator({
+  Favorites: {
+    screen: Favorites,
+    navigationOptions: {
+      title: 'Vos oeuvres favorites'
+    }
+  },
+  DetailOeuvre: {
+    screen: DetailOeuvre,
+    navigationOptions: {
+      title: 'Oeuvre détaillée'
+    }
+  }
+})
+
 const AppTabNavigator = createBottomTabNavigator({
     Oeuvres: {
       screen: OeuvresStackNavigator,
@@ -35,7 +74,7 @@ const AppTabNavigator = createBottomTabNavigator({
 
     },
     Favorites: {
-      screen: Favorites,
+      screen: FavoritesStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
           return <Image source={require('../Images/ic_favorite.png')} style={styles.icon} />
@@ -43,7 +82,7 @@ const AppTabNavigator = createBottomTabNavigator({
       }
     },
     Recherche: {
-      screen: Recherche,
+      screen: RechercheStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
           return <Image source={require('../Images/ic_search.png')} style={styles.icon} />
@@ -51,7 +90,7 @@ const AppTabNavigator = createBottomTabNavigator({
       }
     },
     Infos: {
-      screen: Infos,
+      screen: InfoStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
           return <Image source={require('../Images/ic_info.png')} style={styles.icon} />

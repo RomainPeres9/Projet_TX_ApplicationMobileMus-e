@@ -36,27 +36,37 @@ class Recherche extends React.Component {
     this.searchedText = text
   }
 
+  _displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre, materielOeuvre, themeOeuvre, dateOeuvre ) => {
+    this.props.navigation.navigate("DetailOeuvre", { url: urlOeuvre, title: titleOeuvre, artiste: artisteOeuvre, photo: imageOeuvre, materiel: materielOeuvre, theme: themeOeuvre, date: dateOeuvre})
+  }
+
   render() {
     return (
+    <View style={styles.contents}>
     <View style={styles.main_container}>
       <TextInput onChangeText={(text) => this._searchedTextInputChange(text)} style={styles.textinput} placeholder="Nom de l'oeuvre que vous recherchez" />
       <Button style={styles.button} title='Rechercher' onPress={() => this._loadOeuvres()}/>
       <FlatList
         data={this.state.oeuvres}
         keyExtractor={(item) => item.url}
-        renderItem={({item}) => <ItemOeuvre oeuvre={item}/>}
+        renderItem={({item}) => <ItemOeuvre oeuvre={item}displayDetailForOeuvre={this._displayDetailForOeuvre}/>}
       />
+    </View>
     </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  contents: {
+    backgroundColor: '#FBF8EF',
+    flex: 1
+  },
   main_container: {
-    flex: 1,
-    marginTop: 30
+    flex: 1
   },
   textinput: {
+    marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 10,
@@ -66,6 +76,8 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   },
   button : {
+    marginLeft: 5,
+    marginRight: 5,
     height : 50,
     color : 'orange'
   }

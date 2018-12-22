@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import data from '../Helpers/AppBDMusee.json'
+//import data from '../Helpers/AppBDMusee.json'
 
 class DetailOeuvre extends React.Component {
     constructor(props) {
@@ -48,7 +48,7 @@ class DetailOeuvre extends React.Component {
               <Text style={{color: '#6C4202'}}> Matériel : {oeuvre.materiel} </Text>
             </View>
             <View style={styles.note}>
-              <TouchableOpacity onPress={() => this._toggleFavorite()} style={styles.favorite_container}>
+              <TouchableOpacity onPress={() => this._toggleFavorite(this.state)} style={styles.favorite_container}>
                   {this._displayFavoriteImage()}
               </TouchableOpacity>
             </View>
@@ -60,7 +60,6 @@ class DetailOeuvre extends React.Component {
     //Fait parti du cycle de vie Updating
     componentDidUpdate() {
       console.log(this.props.favoritesOeuvre);
-      //console.log("salut!!")
     }
 
     _toggleFavorite() {
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
   }
 })
 
-//On connecte ici le state global aux props du component filmDetail
+//On connecte ici le state global aux props du component DetailOeuvre
 const mapStateToProps = (state) => {
   return {
     favoritesOeuvre: state.favoritesOeuvre
