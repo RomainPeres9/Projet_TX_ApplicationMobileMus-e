@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 class ItemOeuvre extends React.Component {
-	_displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre,	materielOeuvre, themeOeuvre, dateOeuvre ) => {
-	    //console.log(this.state.);
-	    this.props.navigation.navigate("DetailOeuvre", { urlOeuvre: url, titleOeuvre: title, artisteOeuvre: artiste, imageOeuvre: photo, materielOeuvre: materiel, themeOeuvre: theme, dateOeuvre: date })
-	  }
+
+  // _displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre,  materielOeuvre, themeOeuvre, dateOeuvre ) => {
+  //     //console.log(this.state.);
+  //     this.props.navigation.navigate("DetailOeuvre", { urlOeuvre: url, titleOeuvre: title, artisteOeuvre: artiste, imageOeuvre: photo, materielOeuvre: materiel, themeOeuvre: theme, dateOeuvre: date })
+  //   }
 
     render() {
         const displayDetailForOeuvre = this.props.displayDetailForOeuvre
@@ -28,18 +29,18 @@ class ItemOeuvre extends React.Component {
 
 const styles = StyleSheet.create({
   content: {
-    marginTop: 15,
+    marginTop: 10,
     flexDirection: 'row',
     flex:1
   },
   details: {
-    marginLeft:5,
+    marginLeft: 7,
     flex:3
   },
   image : {
     flex: 1,
-    height:120,
-    width:80,
+    height: 120,
+    width: 100,
     backgroundColor: '#B45F04'
   },
   head : {
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   artiste : {
-    color: '#6C4202'
+    color: '#B45F04'
   }
 })
 

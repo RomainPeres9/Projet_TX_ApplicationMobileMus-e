@@ -7,6 +7,10 @@ import DetailOeuvre from '../Components/DetailOeuvre'
 import Recherche from '../Components/Recherche'
 import Infos from '../Components/Infos'
 import Favorites from '../Components/Favorites'
+import Home from '../Components/Home'
+import Inscription from '../Components/Inscription'
+import Connexion from '../Components/Connexion'
+
 
 
 const OeuvresStackNavigator = createStackNavigator({
@@ -63,6 +67,27 @@ const FavoritesStackNavigator = createStackNavigator({
   }
 })
 
+const HomeStackNavigator = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      title: 'Musee de Second Empire'
+    }
+  },
+  Inscription: {
+    screen: Inscription,
+    navigationOptions: {
+      title: 'S\'inscrire'
+    }
+  },
+  Connexion: {
+    screen: Connexion,
+    navigationOptions: {
+      title: 'Se connecter'
+    }
+  }
+})
+
 const AppTabNavigator = createBottomTabNavigator({
     Oeuvres: {
       screen: OeuvresStackNavigator,
@@ -71,7 +96,6 @@ const AppTabNavigator = createBottomTabNavigator({
           return <Image source={require('../Images/ic_oeuvres.png')} style={styles.icon} />
         }
       }
-
     },
     Favorites: {
       screen: FavoritesStackNavigator,
@@ -108,8 +132,23 @@ const AppTabNavigator = createBottomTabNavigator({
   }
 )
 
-const AppContainer = createAppContainer(AppTabNavigator)
+const MainStackNavigator = createStackNavigator({
+  Identification: {
+    screen: HomeStackNavigator,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Menu: {
+    screen: AppTabNavigator,
+    navigationOptions: {
+      header: null
+    }
+  }
+})
 
+const AppContainer = createAppContainer(MainStackNavigator)
+//const AppContainer = createAppContainer(AppTabNavigator)
 
 const styles = StyleSheet.create({
   icon: {
@@ -117,5 +156,6 @@ const styles = StyleSheet.create({
     height : 30
   }
 })
+
 
 export default AppContainer
