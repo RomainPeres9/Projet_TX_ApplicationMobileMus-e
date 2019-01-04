@@ -1,8 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, TouchableOpacity } from 'react-native'
-import oeuvres from '../Helpers/BDMusee.js'
 import ItemOeuvre from './ItemOeuvre'
-import { getOeuvreFromJSONwithsearchedText } from '../Query/BDQueryJSON'
 
 class Recherche extends React.Component {
   constructor(props) {
@@ -15,12 +13,10 @@ class Recherche extends React.Component {
 
   _loadOeuvres(){
     if(this.searchedText.length > 0){
-      console.log("Rechercher salope")
-      const request='http://172.20.10.2:8000/oeuvresAutocomplete/?query=' + this.searchedText
-      return fetch(request)
+      const request='http://192.168.43.58:8000/oeuvres/?query=' + this.searchedText
+      fetch(request)
       .then((response) => response.json())
       .then((responseJson) => {
-        //console.log(responseJson)
         this.setState({
           oeuvres: responseJson
         })
@@ -52,7 +48,7 @@ class Recherche extends React.Component {
           <FlatList
             data={this.state.oeuvres}
             keyExtractor={(item) => item.url}
-            renderItem={({item}) => <ItemOeuvre oeuvre={item}displayDetailForOeuvre={this._displayDetailForOeuvre}/>}
+            renderItem={({item}) => <ItemOeuvre oeuvre={item} displayDetailForOeuvre={this._displayDetailForOeuvre} />}
           />
         </View>
       </View>
@@ -77,7 +73,6 @@ const styles = StyleSheet.create({
   textinput: {
     width : 350,
     height: 40,
-    //marginTop: 50,
     marginTop: 5,
     marginBottom: 5,
     textAlign : 'center',

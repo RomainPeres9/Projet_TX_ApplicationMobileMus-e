@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 //On connecte ici le state global aux props du component Favorites
 const mapStateToProps = (state) => {
   return {
-    favoritesOeuvre: state.favoritesOeuvre
+    favoritesOeuvre: state.favorites.favoritesOeuvre
   }
 }
 export default connect(mapStateToProps)(Favorites)

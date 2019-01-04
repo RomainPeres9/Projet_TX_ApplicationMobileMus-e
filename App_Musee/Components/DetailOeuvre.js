@@ -41,7 +41,7 @@ class DetailOeuvre extends React.Component {
     }
 
     componentDidMount() {
-      //console.log(this.props.navigation.state.params)
+      console.log(this.props.navigation.state.params)
       this.setState({
         isloading: false, //le fichier a été trouvé
         oeuvre: this.props.navigation.state.params
@@ -56,6 +56,34 @@ class DetailOeuvre extends React.Component {
           </View>
         )
       }
+    }
+
+    _sendNote(){
+	const urlOeuvre=this.props.navigation.state.params.url
+	const note=this.state.noteUser
+	const urlProfil=this.props.profil.profil
+	if (note){
+		console.log("POST " + note + urlOeuvre + urlProfil)
+		fetch('http://192.168.43.58:8000/notes/',{
+	       		method:'POST',
+	       		headers: {
+		  		//'Accept': 'application/json',
+		  		'Content-Type':'application/json',
+	       		},
+	       		body: JSON.stringify({
+				valeur: note ,
+				oeuvre: urlOeuvre,
+				user: urlProfil,
+			})
+	   	})
+      		.then((response) => response.json())
+      		.then((res) => {
+			console.log(res)
+      		})
+      		.catch((error) =>{
+        		console.error(error)
+      		})
+	}
     }
 
     _displayOeuvre() {
@@ -89,8 +117,9 @@ class DetailOeuvre extends React.Component {
                   items={this.state.items}
                   onValueChange={(value) => { this.setState({ noteUser: value }); }}
                   value={this.state.noteUser}
-                 //ref={(el) => { this.inputRefs.picker = el; }}
+                 
               />
+	      <Button title='Envoyer' onPress={() => this._sendNote()} color='#B45F04'/>
             </View>
           </ScrollView>
         )
@@ -99,7 +128,7 @@ class DetailOeuvre extends React.Component {
 
     //Fait parti du cycle de vie Updating
     componentDidUpdate() {
-      console.log(this.props.favoritesOeuvre);
+      console.log(this.props.favorites.favoritesOeuvre);
     }
 
     _toggleFavorite() {
@@ -110,7 +139,7 @@ class DetailOeuvre extends React.Component {
 
     _displayFavoriteImage() {
       var sourceImage = require('../Images/ic_favorite_border.png')
-      if(this.props.favoritesOeuvre.findIndex(item => item.url === this.state.oeuvre.url) !== -1){
+      if(this.props.favorites.favoritesOeuvre.findIndex(item => item.url === this.state.oeuvre.url) !== -1){
         //le film fait deja parti de nos favoris
         sourceImage = require('../Images/ic_favorite.png')
       }
@@ -153,6 +182,7 @@ const styles = StyleSheet.create({
   note:{
     flex: 1,
     alignItems: 'center',
+    flexDirection: 'row',
     fontSize: 20,
     //backgroundColor : 'blue'
   },
@@ -209,7 +239,7 @@ const pickerSelectStyles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 4,
         marginRight : 4,
-        fontSize: 16,
+        //fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
         paddingTop: 10,
@@ -224,7 +254,7 @@ const pickerSelectStyles = StyleSheet.create({
     inputAndroid: {
         height: 50,
         width: 150,
-        fontSize: 16,
+        //fontSize: 16,
         paddingTop: 13,
         paddingHorizontal: 10,
         paddingBottom: 12,
@@ -238,9 +268,7 @@ const pickerSelectStyles = StyleSheet.create({
 
 //On connecte ici le state global aux props du component DetailOeuvre
 const mapStateToProps = (state) => {
-  return {
-    favoritesOeuvre: state.favoritesOeuvre
-  }
+  return state
 }
 
 export default connect(mapStateToProps)(DetailOeuvre)

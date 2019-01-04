@@ -10,8 +10,7 @@ import Favorites from '../Components/Favorites'
 import Home from '../Components/Home'
 import Inscription from '../Components/Inscription'
 import Connexion from '../Components/Connexion'
-
-
+import ErreurConnexion from '../Components/ErreurConnexion'
 
 const OeuvresStackNavigator = createStackNavigator({
   EnsembleOeuvres: {
@@ -84,6 +83,12 @@ const HomeStackNavigator = createStackNavigator({
     screen: Connexion,
     navigationOptions: {
       title: 'Se connecter'
+    }
+  },
+  ErreurConnexion: {
+    screen: ErreurConnexion,
+    navigationOptions: {
+      title: 'Erreur Connexion'
     }
   }
 })

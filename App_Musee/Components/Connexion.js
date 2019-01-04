@@ -1,16 +1,51 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Image, Button, TouchableOpacity, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
 
 class Connexion extends React.Component {
   constructor(props) {
     super(props)
-    this.adresseMail = ""
+    this.adresseMailText = ""
   }
 
   _adresseMailTextInputChange(text) {
     this.adresseMailText = text
   }
+  
+  _toggleProfil(url){
+    const action={ type : "TOGGLE_PROFIL", value : url}
+    console.log(action)
+    this.props.dispatch(action)
+  }
 
+  _verifyMail() {
+    fetch('http://192.168.43.58:8000/authenticate/',{
+	       method:'POST',
+	       headers: {
+		  //'Accept': 'application/json',
+		  'Content-Type':'application/json',
+	       },
+	       body: JSON.stringify({
+			email: this.adresseMailText
+		})
+	    })
+      .then((response) => response.json())
+      .then((res) => {
+	if(res.url){
+		console.log(res.url)
+		this._toggleProfil(res.url) //passer l'url dans le state global
+		this.props.navigation.navigate("Menu")
+	}
+	else {
+		console.log("Erreur cet email n'existe pas")
+		this.props.navigation.navigate("ErreurConnexion")
+	} // afficher view d'erreur disant que l'email n'existe pas
+      })
+      .catch((error) =>{
+        console.error(error)
+      })
+    
+  }
   _displayConnexionForMenu() {
     this.props.navigation.navigate("Menu")
   }
@@ -22,7 +57,7 @@ class Connexion extends React.Component {
           <TextInput style={styles.textinput} placeholder="Entrez votre adresse mail" placeholderTextColor='#B45F04' onChangeText={(text) => this._adresseMailTextInputChange(text)}/>
         </View>
         <View style={styles.end}>
-          <TouchableOpacity style={styles.Boutton1} onPress={() => this._displayConnexionForMenu()}>
+          <TouchableOpacity style={styles.Boutton1} onPress={() => this._verifyMail()}>
             <Text style={styles.TextBoutton}> Connexion </Text>
           </TouchableOpacity>
         </View>
@@ -119,5 +154,8 @@ const pickerSelectStyles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = (state) => {
+  return state
+}
 
-export default Connexion
+export default connect(mapStateToProps)(Connexion)

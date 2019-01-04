@@ -13,10 +13,9 @@ class EnsembleOeuvres extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://172.20.10.2:8000/oeuvres/')
+    return fetch('http://192.168.43.58:8000/oeuvres/')
       .then((response) => response.json())
       .then((responseJson) => {
-        //console.log(responseJson)
         this.setState({
           isLoading: false,
           oeuvres: responseJson

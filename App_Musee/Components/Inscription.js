@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Image, Button, TouchableOpacity, ScrollView } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select';
+import { connect } from 'react-redux'
 
 class Inscription extends React.Component {
   constructor(props) {
@@ -17,11 +18,11 @@ class Inscription extends React.Component {
       items: [
         {
           label: 'Homme',
-          value: 'Homme',
+          value: 'HOMME',
         },
         {
           label: 'Femme',
-          value: 'Femme',
+          value: 'FEMME',
         }
       ]
     }
@@ -52,7 +53,61 @@ class Inscription extends React.Component {
   // }
 
   _displayInscriptionForMenu() {
-    this.props.navigation.navigate("Menu")
+    
+  }
+
+  _toggleProfil(url){
+    const action={ type : "TOGGLE_PROFIL", value : url}
+    console.log(action)
+    this.props.dispatch(action)
+  }
+
+  _sendInscription() {
+//Verifie adresse mail existe deja ou pas
+
+    fetch('http://192.168.43.58:8000/authenticate/',{
+	       method:'POST',
+	       headers: {
+		  //'Accept': 'application/json',
+		  'Content-Type':'application/json',
+	       },
+	       body: JSON.stringify({
+			email: this.adresseMailText
+		})
+	    })
+      .then((response) => response.json())
+      .then((res) => {
+	if(res.url){
+		console.log(res.url)
+		//afficher view error email existe deja
+	}
+	else { // si existe pas POST l'user
+	    fetch('http://192.168.43.58:8000/users/',{
+	       method:'POST',
+	       headers: {
+		  'Content-Type':'application/json',
+	       },
+	       body: JSON.stringify({
+			nom: this.nomText ,
+			prenom: this.prenomText ,
+			email: this.adresseMailText ,
+			age: this.ageText ,
+			sexe: this.state.sexe	
+		})
+	    })
+	    .then((response) => response.json())
+      	    .then((res) => {
+		console.log(res.url)
+		this._toggleProfil(res.url)//passer l'url dans le state global
+		this.props.navigation.navigate("Menu")
+	    })
+	    .catch((error) => {console.log(error)})
+	} 
+      })
+      .catch((error) =>{
+        console.error(error)
+      })
+
   }
 
   render() {
@@ -77,7 +132,7 @@ class Inscription extends React.Component {
           />
         </View>
         <View style={styles.end}>
-          <TouchableOpacity style={styles.Boutton1} onPress={() => this._displayInscriptionForMenu()}>
+	  <TouchableOpacity style={styles.Boutton1} onPress={() => this._sendInscription()}>
             <Text style={styles.TextBoutton}> Inscription </Text>
           </TouchableOpacity>
         </View>
@@ -146,7 +201,7 @@ const pickerSelectStyles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 2,
         marginRight : 2,
-        fontSize: 16,
+        //fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
         paddingTop: 10,
@@ -161,7 +216,7 @@ const pickerSelectStyles = StyleSheet.create({
     inputAndroid: {
         height: 50,
         width: 150,
-        fontSize: 16,
+        //fontSize: 16,
         paddingTop: 13,
         paddingHorizontal: 10,
         paddingBottom: 12,
@@ -173,5 +228,8 @@ const pickerSelectStyles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = (state) => {
+  return state
+}
 
-export default Inscription
+export default connect(mapStateToProps)(Inscription)
