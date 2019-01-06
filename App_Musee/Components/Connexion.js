@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Image, Button, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 class Connexion extends React.Component {
@@ -14,15 +14,13 @@ class Connexion extends React.Component {
 
   _toggleProfil(url){
     const action={ type : "TOGGLE_PROFIL", value : url}
-    console.log(action)
     this.props.dispatch(action)
   }
 
   _verifyMail() {
-    fetch('http://172.20.10.3:8000/authenticate/',{
+    fetch('http://192.168.43.58:8000/authenticate/',{
          method:'POST',
          headers: {
-      //'Accept': 'application/json',
       'Content-Type':'application/json',
          },
          body: JSON.stringify({
@@ -32,22 +30,17 @@ class Connexion extends React.Component {
       .then((response) => response.json())
       .then((res) => {
   if(res.url){
-    console.log(res.url)
     this._toggleProfil(res.url) //passer l'url dans le state global
     this.props.navigation.navigate("Menu")
   }
   else {
-    console.log("Erreur cet email n'existe pas")
     this.props.navigation.navigate("ErreurConnexion")
-  } // afficher view d'erreur disant que l'email n'existe pas
+  } 
       })
       .catch((error) =>{
         console.error(error)
       })
 
-  }
-  _displayConnexionForMenu() {
-    this.props.navigation.navigate("Menu")
   }
 
   render() {
@@ -76,14 +69,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 5,
     flexDirection: 'column',
-    //alignItems : 'center',
     justifyContent : 'center',
     backgroundColor: '#FBF8EF'
-    //backgroundColor: '#FBF8EF'
   },
   end: {
     flex : 3,
-    //justifyContent : 'center',
     alignItems : 'center',
     backgroundColor: '#FBF8EF',
     flexDirection: 'column'
@@ -100,7 +90,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#FBF8EF',
     fontSize: 16,
-    //fontWeight: 'bold',
     color: '#B45F04'
   },
   Boutton1: {

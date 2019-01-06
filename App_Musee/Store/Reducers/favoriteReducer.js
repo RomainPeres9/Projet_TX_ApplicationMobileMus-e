@@ -6,8 +6,6 @@ function toggleFavorite(state = initialState, action) {
   switch(action.type) {
     case 'TOGGLE_FAVORITE':
       const favoritesOeuvreIndex = state.favoritesOeuvre.findIndex(item => item.url === action.value.url)
-	console.log(favoritesOeuvreIndex)
-	console.log(action.value.url)
       if(favoritesOeuvreIndex !== -1) {
         //suppression => Cela veut dire que l'oeuvre est présente dans la liste des favoris donc on la supprime
         nextState = {

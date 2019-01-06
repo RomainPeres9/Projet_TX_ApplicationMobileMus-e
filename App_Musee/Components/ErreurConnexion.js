@@ -6,11 +6,11 @@ class ErreurConnexion extends React.Component {
     render() {
         
         return (
-          <View style={styles.contents}>
-      <View style={styles.content}>
-              <Text> Le mail avec le quel vous essayez de vous connecter est inconnu.</Text>
-            </View>
-    </View>
+         <View style={styles.contents}>
+      		<View style={styles.content}>
+              		<Text> Le mail avec le quel vous essayez de vous connecter est inconnu.</Text>
+            	</View>
+   	 </View>
         )
     }
 

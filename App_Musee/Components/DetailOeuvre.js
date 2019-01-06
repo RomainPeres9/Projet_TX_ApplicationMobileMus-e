@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import RNPickerSelect from 'react-native-picker-select';
-//import data from '../Helpers/AppBDMusee.json'
 
 class DetailOeuvre extends React.Component {
     constructor(props) {
@@ -40,7 +39,6 @@ class DetailOeuvre extends React.Component {
     }
 
     componentDidMount() {
-      //console.log(this.props.navigation.state.params)
       this.setState({
         oeuvre: this.props.navigation.state.params
       })
@@ -51,8 +49,7 @@ class DetailOeuvre extends React.Component {
        const note=this.state.noteUser
        const urlProfil=this.props.profil.profil
        if (note){
-           console.log("POST " + note + urlOeuvre + urlProfil)
-           fetch('http://172.20.10.3:8000/notes/',{
+           fetch('http://192.168.43.58:8000/notes/',{
                method:'POST',
                headers: { 'Content-Type':'application/json',},
                body: JSON.stringify({
@@ -61,10 +58,6 @@ class DetailOeuvre extends React.Component {
                      user: urlProfil,
                })
            })
-          .then((response) => response.json())
-          .then((res) => {
-               console.log(res)
-          })
           .catch((error) =>{
             console.error(error)
           })
@@ -98,14 +91,13 @@ class DetailOeuvre extends React.Component {
                     label: 'Note',
                     value: null,
                   }}
-                  //placeholderTextColor='#B45F04'
                   placeholderTextColor='grey'
                   items={this.state.items}
                   onValueChange={(value) => { this.setState({ noteUser: value }); }}
                   value={this.state.noteUser}
                />
                <TouchableOpacity style={styles.BouttonNoter} onPress={() => this._sendNote()}>
-                 <Text style={styles.TextBoutton}>Noter</Text>
+                 <Text style={styles.TextBoutton}> Noter </Text>
                </TouchableOpacity>
             </View>
           </ScrollView>
@@ -113,14 +105,8 @@ class DetailOeuvre extends React.Component {
       }
     }
 
-    //Fait parti du cycle de vie Updating
-    componentDidUpdate() {
-      console.log(this.props.favorites.favoritesOeuvre);
-    }
-
     _toggleFavorite() {
       const action = { type: "TOGGLE_FAVORITE", value: this.state.oeuvre }
-      console.log(action.value.url)
       this.props.dispatch(action)
     }
 
@@ -154,23 +140,19 @@ const styles = StyleSheet.create({
   scrollview_container: {
     flex: 1,
     backgroundColor: '#FBF8EF'
-    //width: '100%'
   },
   header: {
     flex: 3,
-    flexDirection: 'row',
-    //backgroundColor :'red'
+    flexDirection: 'row'
   },
   details: {
-    flex: 2,
-    //backgroundColor : 'grey'
+    flex: 2
   },
   note:{
     flex: 3,
     alignItems: 'center',
     flexDirection: 'column',
-    fontSize: 20,
-    //backgroundColor : 'blue'
+    fontSize: 20
   },
   image : {
     height:180,
@@ -210,8 +192,7 @@ const styles = StyleSheet.create({
   },
   favorite_container: {
     flex: 1,
-    alignItems: 'center',
-    //backgroundColor: 'green'
+    alignItems: 'center'
   },
   favorite_image: {
     width: 40,
@@ -219,12 +200,12 @@ const styles = StyleSheet.create({
   },
   BouttonNoter: {
     height : 40,
-    width : 100,
-    //textAlign : 'center',
+    width : 120,
     alignItems : 'center',
     justifyContent: 'center',
     backgroundColor: '#B45F04',
     marginBottom : 25,
+    marginTop : 5,
     paddingHorizontal: 30,
     paddingVertical: 5,
     borderRadius: 50
@@ -242,8 +223,6 @@ const pickerSelectStyles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 4,
         marginRight : 4,
-        //fontSize: 16,
-        //fontWeight: 'bold',
         textAlign: 'center',
         paddingTop: 10,
         paddingHorizontal: 10,
@@ -253,13 +232,11 @@ const pickerSelectStyles = StyleSheet.create({
         borderRadius: 10,
         fontSize: 16,
         backgroundColor: '#FBF8EF',
-        //color: '#B45F04',
         color: 'grey'
     },
     inputAndroid: {
         height: 50,
         width: 150,
-        //fontSize: 16,
         paddingTop: 13,
         paddingHorizontal: 10,
         paddingBottom: 12,
@@ -277,4 +254,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(DetailOeuvre)
-//export default DetailOeuvre

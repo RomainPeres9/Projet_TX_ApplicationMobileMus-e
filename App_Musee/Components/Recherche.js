@@ -13,7 +13,7 @@ class Recherche extends React.Component {
 
   _loadOeuvres(){
     if(this.searchedText.length > 0){
-      const request='http://172.20.10.3:8000/oeuvres/?query=' + this.searchedText
+      const request='http://192.168.43.58:8000/oeuvres/?query=' + this.searchedText
       fetch(request)
       .then((response) => response.json())
       .then((responseJson) => {

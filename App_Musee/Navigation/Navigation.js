@@ -153,7 +153,6 @@ const MainStackNavigator = createStackNavigator({
 })
 
 const AppContainer = createAppContainer(MainStackNavigator)
-//const AppContainer = createAppContainer(AppTabNavigator)
 
 const styles = StyleSheet.create({
   icon: {

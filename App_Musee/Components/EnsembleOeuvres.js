@@ -13,7 +13,7 @@ class EnsembleOeuvres extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://172.20.10.3:8000/oeuvres/')
+    return fetch('http://192.168.43.58:8000/oeuvres/')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 250,
-    //bottom: 0,
     alignItems: 'center',
     justifyContent: 'center'
   }

@@ -27,10 +27,10 @@ class Favorites extends React.Component {
     }
     else {
       return (
-  <View style={styles.contents}>
+    	<View style={styles.contents}>
           <View style={styles.main_container}>
-      <Text> Vous n’avez pas de favoris. </Text>
-    </View>
+      	    <Text> Vous n’avez pas de favoris. </Text>
+    	  </View>
         </View>
       )
     }
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
 })
 
 //On connecte ici le state global aux props du component Favorites
+
 const mapStateToProps = (state) => {
   return {
     favoritesOeuvre: state.favorites.favoritesOeuvre
