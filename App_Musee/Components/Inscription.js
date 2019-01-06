@@ -52,10 +52,6 @@ class Inscription extends React.Component {
   //   this.sexe = choice
   // }
 
-  _displayInscriptionForMenu() {
-    
-  }
-
   _toggleProfil(url){
     const action={ type : "TOGGLE_PROFIL", value : url}
     console.log(action)
@@ -65,44 +61,44 @@ class Inscription extends React.Component {
   _sendInscription() {
 //Verifie adresse mail existe deja ou pas
 
-    fetch('http://192.168.43.58:8000/authenticate/',{
-	       method:'POST',
-	       headers: {
-		  //'Accept': 'application/json',
-		  'Content-Type':'application/json',
-	       },
-	       body: JSON.stringify({
-			email: this.adresseMailText
-		})
-	    })
+    fetch('http://172.20.10.3:8000/authenticate/',{
+         method:'POST',
+         headers: {
+      //'Accept': 'application/json',
+      'Content-Type':'application/json',
+         },
+         body: JSON.stringify({
+      email: this.adresseMailText
+    })
+      })
       .then((response) => response.json())
       .then((res) => {
-	if(res.url){
-		console.log(res.url)
-		//afficher view error email existe deja
-	}
-	else { // si existe pas POST l'user
-	    fetch('http://192.168.43.58:8000/users/',{
-	       method:'POST',
-	       headers: {
-		  'Content-Type':'application/json',
-	       },
-	       body: JSON.stringify({
-			nom: this.nomText ,
-			prenom: this.prenomText ,
-			email: this.adresseMailText ,
-			age: this.ageText ,
-			sexe: this.state.sexe	
-		})
-	    })
-	    .then((response) => response.json())
-      	    .then((res) => {
-		console.log(res.url)
-		this._toggleProfil(res.url)//passer l'url dans le state global
-		this.props.navigation.navigate("Menu")
-	    })
-	    .catch((error) => {console.log(error)})
-	} 
+  if(res.url){
+    console.log(res.url)
+    //afficher view error email existe deja
+  }
+  else { // si existe pas POST l'user
+      fetch('http://172.20.10.3:8000/users/',{
+         method:'POST',
+         headers: {
+      'Content-Type':'application/json',
+         },
+         body: JSON.stringify({
+      nom: this.nomText ,
+      prenom: this.prenomText ,
+      email: this.adresseMailText ,
+      age: this.ageText ,
+      sexe: this.state.sexe
+    })
+      })
+      .then((response) => response.json())
+            .then((res) => {
+    console.log(res.url)
+    this._toggleProfil(res.url)//passer l'url dans le state global
+    this.props.navigation.navigate("Menu")
+      })
+      .catch((error) => {console.log(error)})
+  }
       })
       .catch((error) =>{
         console.error(error)
@@ -114,17 +110,17 @@ class Inscription extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.content}>
-          <TextInput style={styles.textinput} placeholder="Prenom" placeholderTextColor='#B45F04' onChangeText={(text) => this._prenomTextInputChange(text)}/>
-          <TextInput style={styles.textinput} placeholder="Nom" placeholderTextColor='#B45F04' onChangeText={(text) => this._nomTextInputChange(text)}/>
-          <TextInput style={styles.textinput} placeholder="Adresse Mail" placeholderTextColor='#B45F04' onChangeText={(text) => this._adresseMailTextInputChange(text)}/>
-          <TextInput style={styles.textinput} placeholder="Age" placeholderTextColor='#B45F04' onChangeText={(text) => this._ageTextInputChange(text)}/>
+          <TextInput style={styles.textinput} placeholder="Prenom" placeholderTextColor='grey' onChangeText={(text) => this._prenomTextInputChange(text)}/>
+          <TextInput style={styles.textinput} placeholder="Nom" placeholderTextColor='grey' onChangeText={(text) => this._nomTextInputChange(text)}/>
+          <TextInput style={styles.textinput} placeholder="Adresse Mail" placeholderTextColor='grey' onChangeText={(text) => this._adresseMailTextInputChange(text)}/>
+          <TextInput style={styles.textinput} placeholder="Age" placeholderTextColor='grey' onChangeText={(text) => this._ageTextInputChange(text)}/>
           <RNPickerSelect
                       style={{ ...pickerSelectStyles }}
                       placeholder={{
                           label: 'Sexe',
                           value: null,
                       }}
-                      placeholderTextColor='#B45F04'
+                      placeholderTextColor='grey'
                       items={this.state.items}
                       onValueChange={(value) => { this.setState({ sexe: value }); }}
                       value={this.state.sexe}
@@ -132,7 +128,7 @@ class Inscription extends React.Component {
           />
         </View>
         <View style={styles.end}>
-	  <TouchableOpacity style={styles.Boutton1} onPress={() => this._sendInscription()}>
+    <TouchableOpacity style={styles.Boutton1} onPress={() => this._sendInscription()}>
             <Text style={styles.TextBoutton}> Inscription </Text>
           </TouchableOpacity>
         </View>
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#FBF8EF',
     fontSize: 16,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     color: '#B45F04'
   },
   Boutton1: {
@@ -202,7 +198,7 @@ const pickerSelectStyles = StyleSheet.create({
         marginLeft: 2,
         marginRight : 2,
         //fontSize: 16,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         textAlign: 'center',
         paddingTop: 10,
         paddingHorizontal: 10,
@@ -210,6 +206,7 @@ const pickerSelectStyles = StyleSheet.create({
         borderWidth: 3,
         borderColor: '#B45F04',
         borderRadius: 10,
+        fontSize: 16,
         backgroundColor: '#FBF8EF',
         color: '#B45F04',
     },

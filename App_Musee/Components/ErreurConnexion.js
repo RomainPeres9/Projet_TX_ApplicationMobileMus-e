@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native'
 
 class ErreurConnexion extends React.Component {
-	
+  
     render() {
         
         return (
           <View style={styles.contents}>
-	    <View style={styles.content}>
+      <View style={styles.content}>
               <Text> Le mail avec le quel vous essayez de vous connecter est inconnu.</Text>
             </View>
-	  </View>
+    </View>
         )
     }
 

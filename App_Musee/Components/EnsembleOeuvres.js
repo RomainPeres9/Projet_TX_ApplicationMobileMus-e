@@ -13,7 +13,7 @@ class EnsembleOeuvres extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://192.168.43.58:8000/oeuvres/')
+    return fetch('http://172.20.10.3:8000/oeuvres/')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -34,12 +34,11 @@ _displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre, m
   render(){
     if(this.state.isLoading){
       return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
+        <View style={styles.loading_container}>
+          <ActivityIndicator size='large'/>
         </View>
       )
     }
-
     return (
 
       <View style={styles.contents}>
@@ -64,6 +63,15 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     flex: 1
+  },
+  loading_container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 250,
+    //bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

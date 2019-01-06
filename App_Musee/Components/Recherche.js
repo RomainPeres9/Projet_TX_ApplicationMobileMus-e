@@ -13,7 +13,7 @@ class Recherche extends React.Component {
 
   _loadOeuvres(){
     if(this.searchedText.length > 0){
-      const request='http://192.168.43.58:8000/oeuvres/?query=' + this.searchedText
+      const request='http://172.20.10.3:8000/oeuvres/?query=' + this.searchedText
       fetch(request)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -39,7 +39,7 @@ class Recherche extends React.Component {
     return (
       <View style={styles.main_container}>
         <View style={styles.top}>
-          <TextInput style={styles.textinput} placeholder="Nom de l'oeuvre que vous recherchez" placeholderTextColor="#B45F04" onChangeText={(text) => this._searchedTextInputChange(text)} />
+          <TextInput style={styles.textinput} placeholder="Nom de l'oeuvre que vous recherchez" placeholderTextColor="grey" onChangeText={(text) => this._searchedTextInputChange(text)} />
           <TouchableOpacity style={styles.Boutton1} onPress={() => this._loadOeuvres()}>
             <Text style={styles.TextBoutton}> Rechercher </Text>
           </TouchableOpacity>

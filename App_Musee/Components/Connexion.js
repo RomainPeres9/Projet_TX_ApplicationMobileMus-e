@@ -11,7 +11,7 @@ class Connexion extends React.Component {
   _adresseMailTextInputChange(text) {
     this.adresseMailText = text
   }
-  
+
   _toggleProfil(url){
     const action={ type : "TOGGLE_PROFIL", value : url}
     console.log(action)
@@ -19,32 +19,32 @@ class Connexion extends React.Component {
   }
 
   _verifyMail() {
-    fetch('http://192.168.43.58:8000/authenticate/',{
-	       method:'POST',
-	       headers: {
-		  //'Accept': 'application/json',
-		  'Content-Type':'application/json',
-	       },
-	       body: JSON.stringify({
-			email: this.adresseMailText
-		})
-	    })
+    fetch('http://172.20.10.3:8000/authenticate/',{
+         method:'POST',
+         headers: {
+      //'Accept': 'application/json',
+      'Content-Type':'application/json',
+         },
+         body: JSON.stringify({
+      email: this.adresseMailText
+    })
+      })
       .then((response) => response.json())
       .then((res) => {
-	if(res.url){
-		console.log(res.url)
-		this._toggleProfil(res.url) //passer l'url dans le state global
-		this.props.navigation.navigate("Menu")
-	}
-	else {
-		console.log("Erreur cet email n'existe pas")
-		this.props.navigation.navigate("ErreurConnexion")
-	} // afficher view d'erreur disant que l'email n'existe pas
+  if(res.url){
+    console.log(res.url)
+    this._toggleProfil(res.url) //passer l'url dans le state global
+    this.props.navigation.navigate("Menu")
+  }
+  else {
+    console.log("Erreur cet email n'existe pas")
+    this.props.navigation.navigate("ErreurConnexion")
+  } // afficher view d'erreur disant que l'email n'existe pas
       })
       .catch((error) =>{
         console.error(error)
       })
-    
+
   }
   _displayConnexionForMenu() {
     this.props.navigation.navigate("Menu")
@@ -54,7 +54,7 @@ class Connexion extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.content}>
-          <TextInput style={styles.textinput} placeholder="Entrez votre adresse mail" placeholderTextColor='#B45F04' onChangeText={(text) => this._adresseMailTextInputChange(text)}/>
+          <TextInput style={styles.textinput} placeholder="Adresse Mail" placeholderTextColor='grey' onChangeText={(text) => this._adresseMailTextInputChange(text)}/>
         </View>
         <View style={styles.end}>
           <TouchableOpacity style={styles.Boutton1} onPress={() => this._verifyMail()}>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#FBF8EF',
     fontSize: 16,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     color: '#B45F04'
   },
   Boutton1: {

@@ -9,7 +9,6 @@ class DetailOeuvre extends React.Component {
       super(props)
       this.state = {
         oeuvre: undefined,
-        isloading: true, //verifie si un fichier JSON est entrain d'étre chercher
         noteUser: undefined,
         items: [
           {
@@ -41,50 +40,36 @@ class DetailOeuvre extends React.Component {
     }
 
     componentDidMount() {
-      console.log(this.props.navigation.state.params)
+      //console.log(this.props.navigation.state.params)
       this.setState({
-        isloading: false, //le fichier a été trouvé
         oeuvre: this.props.navigation.state.params
       })
     }
 
-    _displayLoading() {
-      if(this.state.isloading) {
-        return (
-          <View style={styles.loading_container}>
-            <ActivityIndicator size='large' />
-          </View>
-        )
-      }
-    }
-
     _sendNote(){
-	const urlOeuvre=this.props.navigation.state.params.url
-	const note=this.state.noteUser
-	const urlProfil=this.props.profil.profil
-	if (note){
-		console.log("POST " + note + urlOeuvre + urlProfil)
-		fetch('http://192.168.43.58:8000/notes/',{
-	       		method:'POST',
-	       		headers: {
-		  		//'Accept': 'application/json',
-		  		'Content-Type':'application/json',
-	       		},
-	       		body: JSON.stringify({
-				valeur: note ,
-				oeuvre: urlOeuvre,
-				user: urlProfil,
-			})
-	   	})
-      		.then((response) => response.json())
-      		.then((res) => {
-			console.log(res)
-      		})
-      		.catch((error) =>{
-        		console.error(error)
-      		})
-	}
-    }
+       const urlOeuvre=this.props.navigation.state.params.url
+       const note=this.state.noteUser
+       const urlProfil=this.props.profil.profil
+       if (note){
+           console.log("POST " + note + urlOeuvre + urlProfil)
+           fetch('http://172.20.10.3:8000/notes/',{
+               method:'POST',
+               headers: { 'Content-Type':'application/json',},
+               body: JSON.stringify({
+                     valeur: note ,
+                     oeuvre: urlOeuvre,
+                     user: urlProfil,
+               })
+           })
+          .then((response) => response.json())
+          .then((res) => {
+               console.log(res)
+          })
+          .catch((error) =>{
+            console.error(error)
+          })
+        }
+      }
 
     _displayOeuvre() {
       const oeuvre = this.state.oeuvre
@@ -113,13 +98,15 @@ class DetailOeuvre extends React.Component {
                     label: 'Note',
                     value: null,
                   }}
-                  placeholderTextColor='#B45F04'
+                  //placeholderTextColor='#B45F04'
+                  placeholderTextColor='grey'
                   items={this.state.items}
                   onValueChange={(value) => { this.setState({ noteUser: value }); }}
                   value={this.state.noteUser}
-                 
-              />
-	      <Button title='Envoyer' onPress={() => this._sendNote()} color='#B45F04'/>
+               />
+               <TouchableOpacity style={styles.BouttonNoter} onPress={() => this._sendNote()}>
+                 <Text style={styles.TextBoutton}>Noter</Text>
+               </TouchableOpacity>
             </View>
           </ScrollView>
         )
@@ -152,7 +139,6 @@ class DetailOeuvre extends React.Component {
         const oeuvre = this.props.navigation.state.params
         return (
           <View style={styles.content}>
-            {this._displayLoading()}
             {this._displayOeuvre()}
           </View>
 
@@ -171,7 +157,7 @@ const styles = StyleSheet.create({
     //width: '100%'
   },
   header: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'row',
     //backgroundColor :'red'
   },
@@ -180,9 +166,9 @@ const styles = StyleSheet.create({
     //backgroundColor : 'grey'
   },
   note:{
-    flex: 1,
+    flex: 3,
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
     fontSize: 20,
     //backgroundColor : 'blue'
   },
@@ -202,7 +188,7 @@ const styles = StyleSheet.create({
   infoText: {
     color: '#B45F04',
     marginLeft: 15,
-    marginTop: 6,
+    marginTop: 10,
     fontSize: 17
   },
   headercontent :{
@@ -230,6 +216,23 @@ const styles = StyleSheet.create({
   favorite_image: {
     width: 40,
     height: 40
+  },
+  BouttonNoter: {
+    height : 40,
+    width : 100,
+    //textAlign : 'center',
+    alignItems : 'center',
+    justifyContent: 'center',
+    backgroundColor: '#B45F04',
+    marginBottom : 25,
+    paddingHorizontal: 30,
+    paddingVertical: 5,
+    borderRadius: 50
+  },
+  TextBoutton: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 })
 
@@ -240,7 +243,7 @@ const pickerSelectStyles = StyleSheet.create({
         marginLeft: 4,
         marginRight : 4,
         //fontSize: 16,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         textAlign: 'center',
         paddingTop: 10,
         paddingHorizontal: 10,
@@ -248,8 +251,10 @@ const pickerSelectStyles = StyleSheet.create({
         borderWidth: 3,
         borderColor: '#B45F04',
         borderRadius: 10,
+        fontSize: 16,
         backgroundColor: '#FBF8EF',
-        color: '#B45F04',
+        //color: '#B45F04',
+        color: 'grey'
     },
     inputAndroid: {
         height: 50,

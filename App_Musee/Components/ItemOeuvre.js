@@ -3,10 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 class ItemOeuvre extends React.Component {
 
-  // _displayDetailForOeuvre = (urlOeuvre, titleOeuvre, artisteOeuvre, imageOeuvre,  materielOeuvre, themeOeuvre, dateOeuvre ) => {
-  //     //console.log(this.state.);
-  //     this.props.navigation.navigate("DetailOeuvre", { urlOeuvre: url, titleOeuvre: title, artisteOeuvre: artiste, imageOeuvre: photo, materielOeuvre: materiel, themeOeuvre: theme, dateOeuvre: date })
-  //   }
 
     render() {
         const displayDetailForOeuvre = this.props.displayDetailForOeuvre
